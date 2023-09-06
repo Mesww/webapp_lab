@@ -1,0 +1,25 @@
+.nav{
+    background-color: black;
+    padding: 0.6rem 0.4rem;
+}
+.nav a {
+    color: white;
+    margin-right: 1rem;
+    text-decoration: none;
+    padding: 0.4rem 0.2rem;
+}
+.nav a:hover {
+    color: gray;
+}
+body{
+    margin: 0;
+}
+.content{
+    padding: 1rem;
+}
+.footer{
+    background-color: rgb(201, 198, 198);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

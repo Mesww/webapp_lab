@@ -1,0 +1,29 @@
+input,select,label,button{
+    display: flex;
+    margin: 0.5rem 0 0.4rem 0.4rem;
+}
+/* ? css สามารถสืบทอดข้อมูลและเขียนทับได้หรือสามารถ inherit และ overwirte  */
+button{
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    border: none;
+    color: white;
+    background-color: green;
+    margin-top: 0.7rem ;
+}
+
+button:hover{
+    background-color: aqua;
+}
+form{
+    padding: 0.2rem;
+    border: 0.1rem solid black;
+    border-radius: 0.3rem;
+    background-color: rgb(177, 173, 173);
+}
+
+.container-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

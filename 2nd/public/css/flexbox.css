@@ -1,0 +1,18 @@
+.container{
+    background-color: bisque;
+    padding: 1rem; 
+    border-radius: 0.3rem;
+}
+.container-center{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.container-column{
+    display: flex;
+    flex-direction: column;
+    /* ?แกนy */
+    justify-content: center;
+    /* ?แกนx */
+    align-items: center;
+}

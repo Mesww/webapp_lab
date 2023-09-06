@@ -1,0 +1,25 @@
+/*? # = id  */
+#text1{
+    color:rgb(109, 109, 230);
+    background-color: rgb(255, 243, 134);
+    border-radius: 10px;
+        /* ? top    right   button  left */
+    padding: 20px     0      20px   20px;
+    /*? root element parent   */
+    font-size: 3rem;
+}
+/*? . = class */
+.textred{
+    color: red;
+}
+#love{
+    background-color: rgb(190, 122, 253);
+    border: 3px solid pink;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 3rem;
+}
+#Bam{
+    color: pink;
+    
+}

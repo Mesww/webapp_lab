@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>css101-form</title>
+    <link rel="stylesheet" href="/public/css/css-form.css">
+  </head>
+  <body>
+    <form action="">
+      <!-- ? label ช่วยกดตรงFirstnameเพื่อกรอกข้อมูลได้เลย -->
+      <label for="fname">Firstname</label>
+      <!--? name มีเพื่อตอนส่งข้อมูลให้databaseจะได้ส่งถูก  -->
+      <input
+        type="text"
+        id="fname"
+        name="firstname"
+        placeholder="Your name.."
+      />
+      
+      <label for="lname">Lastname</label>
+      <input
+        type="text"
+        id="lname"
+        name="lastname"
+        placeholder="Your Lastname.."
+      />
+
+      <label for="major">Major</label>
+      <select name="" id="major">
+        <option value="ce">Computer Engineer</option>
+        <option value="se">Software Engineer</option>
+        <option value="cs">Computer Scince</option>
+      </select>
+      
+      <button type="submit" class="container-center">Submit</button>
+
+    </form>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+body{
+    margin: 0;
+}
+.nav{
+    background-color: black;
+    flex: 2;
+}
+.nav a{
+    padding: 0.5rem 0 0 1rem;
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+
+.nav a:hover{
+    color: gray;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.content{
+    flex: 8;
+    padding: 0.5rem;
+}
+
+.footer{
+    padding: 0.3rem;
+    background-color: lightgrey;
+    text-align: center;
+
+}
+/* !เมื่อขนาดความกว้างของหน้าจอน้อยกว่า400จะต้องเปลี่ยนrowเป็นcolumn */
+@media (max-width:400px){
+    .row{
+        flex-direction: column;
+    }
+    .nav a{
+        display:inline;
+    }
+}

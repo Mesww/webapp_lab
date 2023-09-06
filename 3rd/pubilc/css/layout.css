@@ -1,0 +1,31 @@
+#header{
+    background: url(/pubilc/bootstrap-assets/assets/img/bg-masthead.jpg) center center;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    color: white;
+}
+i.intro{
+    font-size: 5rem;
+}
+div.row-intro {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+#detail1{
+    background-image: url(/pubilc/bootstrap-assets/assets/img/bg-showcase-1.jpg);
+    background-size: cover;
+}
+#detail2{
+    background-image: url(/pubilc/bootstrap-assets/assets/img/bg-showcase-2.jpg);
+    background-size: cover;
+}
+#detail3{
+    background-image: url(/pubilc/bootstrap-assets/assets/img/bg-showcase-3.jpg);
+    background-size: cover;
+}
+.detail-img{
+    min-height: 30rem;
+}
+img.avartar{   
+    max-width: 10rem;
+}
