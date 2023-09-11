@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Random number = 0</h1>
+    <script>
+        const output = document.querySelector('h1');
+        // 0.00 - 0.99
+        // const ran1 = Math.random().toFixed(2);
+        // output.innerHTML = 'Random number = '+ran1;
+        // 1 - 10   
+        // const ran2 = Math.floor(Math.random().toFixed(2)*10)+1;
+        // output.innerHTML = 'Random number = '+(ran2);
+
+        // max - min
+        const max = 10;
+        const min = 1;
+        const ran3 = Math.floor(Math.random().toFixed(2)*(max-min+1))+min;
+        output.innerHTML = 'Random number = '+(ran3);
+    </script>
+</body>
+</html>
