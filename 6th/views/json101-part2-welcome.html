@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <h1 id="Welcome"></h1>
+    <button type="button" class="btn btn-danger">Logout</button>
+    <script>
+        console.log(localStorage.username);
+        // local จะไม่หายไปเมื่อปิดแถบจะหายไปเมื่อปิดbrowser
+        // แต่ session จะหายไปเมื่อปิดแถบ
+        let username = sessionStorage.username;
+        // เมื่อไม่ได้ใช้local storage หรือ ไม่มีข้อมูลในlocal storage
+        if(username===undefined){
+            // เมื่อไม่ได้ใช้session storage หรือ ไม่มีข้อมูลในsession storage
+            username = localStorage.username;
+            if (username === undefined) {
+                alert("dont't by pass");
+                window.location.replace('json101-part2.html');
+            }
+        }
+        document.querySelector('#Welcome').innerHTML = `Welcome ${username}`;
+        document.querySelector('button').onclick = function () {
+            localStorage.removeItem('username');
+            sessionStorage.removeItem('username');
+            // console.log(localStorage.username);
+            window.location.replace('json101-part2.html');
+        }
+    </script>
+</body>
+</html>
