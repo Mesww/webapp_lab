@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <div class="p-3">
+      <h1>Admin Page</h1>
+      <div class="row">
+          <div class="float-end">
+            <button type="button" onclick="addProduct()" class="btn btn-primary float-end ">Add</button>
+          </div>
+            <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <tr class="">
+                                <td scope="row">R1C1</td>
+                                <td>R1C2</td>
+                                <td>R1C3</td>
+                            </tr>
+                            <tr class="">
+                                <td scope="row">Item</td>
+                                <td>Item</td>
+                                <td>Item</td>
+                            </tr> -->
+                  </tbody>
+                </table>
+              </div>
+              <!-- !Add/Edit Model -->
+              <div class="modal" id="productModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- modal header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modalTitleId">Add/Edit product</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- modal body -->
+                        <div class="modal-body">
+                            <form id="formProduct">
+                                <div class="mb-3">
+                                  <label for="" class="form-label">Name</label>
+                                  <input type="text"
+                                    class="form-control" name="pname" id="" aria-describedby="helpId" placeholder="name">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="" class="form-label">Price</label>
+                                  <input type="text"
+                                    class="form-control" name="pprice" id="" aria-describedby="helpId" placeholder="price">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="" class="form-label">Amount</label>
+                                  <input type="text"
+                                    class="form-control" name="pamount" id="" aria-describedby="helpId" placeholder="amount">
+                                </div>
+                                <button type="submit" class="btn btn-success">OK</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+              </div>              
+
+      </div>
+    </div>
+    <script>
+    var action = 'add';
+    var editId = 0;
+      let tbody = document.querySelector("tbody");
+      getProduct();
+    const productModal = new bootstrap.Modal(document.querySelector('#productModal'));
+
+        // delete product
+      function deleteProduct(id) {
+        Swal.fire({
+          title: "Warning",
+          text: "Sure to delete this product?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            fetch(`http://localhost:9000/product/${id}`,{method:'DELETE'})
+          .then(function (response) {
+            if (response.ok) {
+              getProduct();
+            } else {
+              throw "Bad response";
+            }
+          }).then(
+            ()=>{
+                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+          ).catch((err)=>{
+            console.error(err);
+            alert(err);
+          })
+          }
+        });
+      }
+
+      // get product
+      function getProduct() {
+        fetch("http://localhost:9000/product")
+          .then(function (response) {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw "Bad response";
+            }
+          })
+          .then(function (product) {
+            let content = ``;
+            for (const iterator of product) {
+              console.log(iterator);
+              content += `<tr><td>${iterator.id}</td>`;
+              content += `<td><img class="card-img-top" src="/public/asset/${iterator.image}" alt="product"></td>`;
+              content += `<td>${iterator.name}</td>`;
+              content += `<td>${iterator.price}</td>`;
+              content += `<td>${iterator.amount}</td>`;
+              content += `<td><button type="button" onClick = editProduct(${JSON.stringify(iterator)}) class="btn btn-warning">Edit</button></td>`;
+                                                                            // low security
+              content += `<td><button type="button" class="btn btn-danger" onClick = deleteProduct(${iterator.id})>Delete</button></td> </tr>`;
+            }
+            tbody.innerHTML = content;
+          })
+          .catch((err) => {
+            console.error(err);
+            alert("System error, try again later");
+          });
+      }
+      
+    //   add new product modal
+      const formProduct = document.querySelector('#formProduct');
+      function addProduct() {
+        action = 'add';
+        formProduct.reset();
+        document.querySelector('h4.modal-title').innerText = 'Add new product';
+        productModal.show();
+      }
+    // edit product modal
+    function editProduct(product) {
+        action = 'edit';
+        editId = product.id;
+        console.log(product);
+        document.querySelector('h4.modal-title').innerHTML = 'Edit product';
+        document.querySelector('input[name=pname]').value = product.name;
+        document.querySelector('input[name=pprice]').value = product.price;
+        document.querySelector('input[name=pamount]').value = product.amount;
+
+        // show modal
+        productModal.show();
+    }
+
+
+    // add or edit
+      formProduct.onsubmit = function (e) {
+        e.preventDefault();
+        productModal.hide();
+        console.log(formProduct.elements['pname'].value);
+        const pname = formProduct.elements['pname'].value;
+        const pprice = formProduct.elements['pprice'].value;
+        const pamount = formProduct.elements['pamount'].value;
+
+        // add or edit
+        // default is 'add'
+        let url = 'http://127.0.0.1:9000/product';
+        let httpMethod = 'POST';
+        let bodyContent = JSON.stringify(
+            {
+                "id":Math.floor(Math.random *100) +10,
+                "name":pname,
+                "price":pprice,
+                "image":"photo.png",
+                "amount": pamount,
+            }
+        )
+        // edit
+        if (action =='edit') {
+            url = `http://127.0.0.1:9000/product/${editId}`
+            httpMethod = 'PUT';
+            bodyContent = JSON.stringify({
+                "name":pname,
+                "price":pprice,
+                "image": "photo.png",
+                "amount": pamount,
+            })
+        }
+
+        fetch(url,{
+            method:httpMethod,
+            headers:{"Content-Type":"application/json"},
+            body:bodyContent
+        }).then(function (response) {
+            if (response.ok) {
+                formProduct.reset();
+                Swal.fire({
+                    icon:'success',
+                    title:'Success',
+                    text:'Add/Edit productsuccessfully'
+                }).then((result)=>{
+                    getProduct();
+                });
+            } else {
+                throw Error('Bad response');                
+            }
+        }).catch((err)=>{
+            console.error(err);
+            alert(err);
+        });
+      }
+
+
+    </script>
+  </body>
+</html>
