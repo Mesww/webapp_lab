@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- <img src="" alt="clock"> -->
+    <!-- <h1>Homepage</h1>
+    <button >Click</button> -->
+
+    <div class="container">
+      <form id="formlogin">
+        <div class="mb-3 mt-3">
+          <input
+            type="text"
+            class="form-control my-2"
+            placeholder="Username"
+            id="txtUsername"
+            name="txtUsername"
+          />
+
+          <input
+            type="password"
+            class="form-control mb-2"
+            placeholder="Password"
+            id="txtPassword"
+            name="txtPassword"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+
+    <script>
+        const formlogin = document.querySelector("#formlogin") ; 
+      formlogin.onsubmit = async function (e) {
+        // alert('test');
+        // const username = document.querySelector("#txtUsername").value;
+        // const password = document.querySelector("#txtPassword").value;
+        e.preventDefault();
+        // form generally refreshes the page after the submission, we preven it
+        const username = formlogin.elements['txtUsername'].value;
+        const password = formlogin.elements['txtPassword'].value;
+        // console.log(username,password);
+
+        try {
+          const options = {
+            method: "POST",
+            headers: {
+              // standard json
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username: username, password: password }),
+          };
+          // มี await ต้องมี async หน้า function เสมอ
+          const res = await fetch(`/login`, options);
+          if (res.ok) {
+            const data = await res.text();
+            alert(data);
+            // document.querySelector('h1').innerHTML = data;
+          } else {
+            throw Error("Conection error");
+          }
+        } catch (err) {
+          console.error(err);
+          alert(err.message);
+        }
+
+        // fetch('/now').then(function (res) {
+        //     if (res.ok) {
+        //         // after retrun everything is complete
+        //         return res.text();
+        //     }
+        //         throw Error('Connection error')
+        // }).then(function (data) {
+        //     // console.log(data);
+        //     document.querySelector('h1').innerHTML = data
+
+        // }).catch(function (err) {
+        //     console.log(err);
+        //     alert(err);
+        // });
+      };
+    </script>
+  </body>
+</html>

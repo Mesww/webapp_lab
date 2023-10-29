@@ -53,9 +53,9 @@ function createCard(iterator) {
     card.innerHTML = cardDetail;
     return card;
 }
-
-function getProduct() {
-    fetch('http://127.0.0.1:9000/product').then((response)=>{
+function search(data) {
+    
+    fetch(`http://127.0.0.1:9000/product/${data}`).then((response)=>{
         if (response.ok) {
             return response.json();
         } else {
@@ -70,12 +70,36 @@ function getProduct() {
     }).catch((err)=>{
         console.error(err);
         alert('System error, try again later');
-    });    
+    });
+}
+function outputAllproduct() {
+    fetch(`http://127.0.0.1:9000/product`).then((response)=>{
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw Error('Bad response');
+        }
+    }).then((product)=>{
+        // console.log(product);
+        for (const iterator of product) {
+            main.append(createCard(iterator));
+        }
+    
+    }).catch((err)=>{
+        console.error(err);
+        alert('System error, try again later');
+    });
+}
+function getProduct() {
+    let search = document.querySelector('#ipsearch').value;
+    if (search.trim() == '') {
+        outputAllproduct();        
+    } else {
+        search(search); 
+    }
 }
 
-function search() {
-    
-}
+
 
 
 getProduct();
